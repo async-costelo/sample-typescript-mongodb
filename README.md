@@ -1,2 +1,2 @@
 # typescript-mongodb
-REST API using NodeJS and MongoDB
+REST API using NodeJS and MongoDB (Disclaimer: This is a technical exam)
