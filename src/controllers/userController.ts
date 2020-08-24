@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import User from "../user";
+const exjwt = require('express-jwt')
+const jwt = require('jsonwebtoken');
 
 export let allUsers = (req: Request, res: Response) => {
     let user = User.find((err: any, user: any) => {
@@ -60,13 +62,11 @@ export let suspendUser = (req: Request, res: Response) => {
             }
         }
     );
-
 }
 
 
 export let addUser = (req: Request, res: Response) => {
     var user = new User(req.body);
-
     user.save((err: any) => {
         if (err) {
             res.send(err);
@@ -75,3 +75,40 @@ export let addUser = (req: Request, res: Response) => {
         }
     });
 };
+
+export let authUser = async (req: Request, res: Response) => {
+    try {
+
+        let user = await User.findOne({ "username": req.body.username, "password": req.body.password }).exec();
+
+        if (user) {
+
+            let token = jwt.sign(
+                { id: user.id, username: user.username },
+                process.env.TOKEN || 'sHr3k4l1f3',
+                { expiresIn: 129600 },
+
+                (err: any, token: any) => {
+                    res.json({
+                        sucess: true,
+                        err: null,
+                        token,
+                    });
+                }
+            ); // Sigining the token
+
+        } else {
+
+            res.status(401).json({
+                sucess: false,
+                token: null,
+                err: 'Username or password is incorrect',
+            });
+        }
+    }
+    catch (e) {
+        console.log(e)
+    }
+
+
+}

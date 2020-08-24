@@ -1,25 +1,44 @@
+require('dotenv').config()
 import express, { Request, Response, request, response, json } from "express";
 import * as userController from "./controllers/userController";
-// import bodyParser from "body-parser"; not necessary
+const exjwt = require('express-jwt');
+
 
 const app = express();
 app.use(express.json());
+
 app.set("port", process.env.PORT || 3000);
 
+const jwtMW = exjwt({
+    secret: process.env.TOKEN || 'sHr3k4l1f3', //delete OR if u have .env file
+    algorithms: ['HS256']
+});
 
-var obj = {
-    message: 'test typescript-mongodb'
-};
 
-app.get("/", (req: Request, res: Response) => res.send(obj));
+app.use((req: Request, res: Response, next) => {
 
-app.get("/users", userController.allUsers);
-app.get("/user/:id", userController.getUser);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
+    next();
+
+});
+
+app.get("/", jwtMW, (req: Request, res: Response) => res.send('typescript_rest_api'));
+// ^ Authorization type: Bearer Token. Get token from /auth response
+
+app.get("/users", userController.allUsers); //get all Users
+app.get("/user/:id", userController.getUser); //get a User via id
+
 app.post("/user", userController.addUser);
-app.put("/user/:id", userController.updateUser);
-app.delete("/user/:id", userController.deleteUser);
+// ADD USER FIRST (wt username & password) THEN AUTHENTICATE VIA /auth route
 
-app.put("/suspend/:id", userController.suspendUser);
+app.put("/user/:id", userController.updateUser); //update a User
+
+app.delete("/user/:id", userController.deleteUser); //delete a User
+
+app.put("/suspend/:id", userController.suspendUser); //suspend? a User
+
+app.post("/auth", userController.authUser); // sign user with JWT
 
 
 const server = app.listen(app.get("port"), () => {

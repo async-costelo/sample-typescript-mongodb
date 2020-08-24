@@ -12,6 +12,7 @@ mongoose.connect(uri, (err: any) => {
 
 export interface IUser extends mongoose.Document {
     username: string;
+    password: string;
     name: string;
     email: string;
     suspendFlag: boolean;
@@ -19,6 +20,7 @@ export interface IUser extends mongoose.Document {
 
 export const UserSchema = new mongoose.Schema({
     username: { type: String, required: true },
+    password: { type: String, required: true },
     email: { type: String, required: true },
     name: { type: String, required: true },
     suspendFlag: { type: Boolean, required: false }
