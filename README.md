@@ -24,9 +24,21 @@ npm install
 - List all users
 
 > [GET] localhost:3000/user/:id
-- Find a user
+- Find a user via id
 
 > [POST] localhost:3000/user
 - Add a user with body { ... }
+
+> [PUT] localhost:3000/user/:id
+- Update user contents { ... }
+
+> [DELETE] localhost:3000/user/:id
+- Delete a user via id 
+
+> [PUT] localhost:3000/suspend/:id
+- Suspend? a user via id
+
+> [POST] localhost:3000/auth
+- Authenticate user using user & pass to get JWT
 
 
