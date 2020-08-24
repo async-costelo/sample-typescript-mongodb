@@ -5,7 +5,7 @@ REST API using NodeJS and MongoDB (Disclaimer: This is a technical exam)
 
 You need to install these things for the app to work: 
 * [NodeJS](https://nodejs.org/en/download/) 
-* [MongoDB] (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) or install it via npm
+* [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) or install it via npm
 
 ### Installing
 
@@ -17,5 +17,16 @@ npm install
 
 ### Routes
 
-...
+> [GET] localhost:3000/
+- This is the root directory of the app, you must have a JWT bearer token in order to access it.
+
+> [GET] localhost:3000/users
+- List all users
+
+> [GET] localhost:3000/user/:id
+- Find a user
+
+> [POST] localhost:3000/user
+- Add a user with body { ... }
+
 
