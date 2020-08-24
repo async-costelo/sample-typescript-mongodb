@@ -2,11 +2,16 @@ require('dotenv').config()
 import express, { Request, Response, request, response, json } from "express";
 import * as userController from "./controllers/userController";
 const exjwt = require('express-jwt');
+const ejs = require('ejs');
+const path = require('path');
 
 
 const app = express();
+
 app.use(express.json());
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
 app.set("port", process.env.PORT || 3000);
 
 const jwtMW = exjwt({
@@ -23,7 +28,7 @@ app.use((req: Request, res: Response, next) => {
 
 });
 
-app.get("/", jwtMW, (req: Request, res: Response) => res.send('typescript_rest_api'));
+app.get("/", jwtMW, (req: Request, res: Response) => res.render('pages/index'));
 // ^ Authorization type: Bearer Token. Get token from /auth response
 
 app.get("/users", userController.allUsers); //get all Users
