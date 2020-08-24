@@ -32,7 +32,7 @@ export let deleteUser = (req: Request, res: Response) => {
 };
 
 export let updateUser = (req: Request, res: Response) => {
-    console.log(req.body);
+    // console.log(req.body);
     let user = User.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -45,6 +45,24 @@ export let updateUser = (req: Request, res: Response) => {
         }
     );
 };
+
+
+export let suspendUser = (req: Request, res: Response) => {
+    // console.log(req.body);
+    let user = User.findByIdAndUpdate(
+        req.params.id,
+        { "suspendFlag": true },
+        (err: any, user: any) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send("Successfully suspended user: " + req.params.id);
+            }
+        }
+    );
+
+}
+
 
 export let addUser = (req: Request, res: Response) => {
     var user = new User(req.body);

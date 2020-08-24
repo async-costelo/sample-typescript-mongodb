@@ -19,6 +19,8 @@ app.post("/user", userController.addUser);
 app.put("/user/:id", userController.updateUser);
 app.delete("/user/:id", userController.deleteUser);
 
+app.put("/suspend/:id", userController.suspendUser);
+
 
 const server = app.listen(app.get("port"), () => {
     console.log("app is running on http://localhost:%d", app.get("port"));
