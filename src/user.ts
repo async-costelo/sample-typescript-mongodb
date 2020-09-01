@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const uri: string = "mongodb://127.0.0.1:27017/";
+const uri: string = "mongodb://mongo:27017/";
 
 mongoose.connect(uri, (err: any) => {
     if (err) {
