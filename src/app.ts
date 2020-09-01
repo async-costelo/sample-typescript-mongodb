@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, '../views'));
 app.set("port", process.env.PORT || 3000);
 
 const jwtMW = exjwt({
-    secret: process.env.TOKEN || 'sHr3k4l1f3', //delete OR if u have .env file
+    secret: process.env.TOKEN,
     algorithms: ['HS256']
 });
 

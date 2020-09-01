@@ -85,7 +85,7 @@ export let authUser = async (req: Request, res: Response) => {
 
             let token = jwt.sign(
                 { id: user.id, username: user.username },
-                process.env.TOKEN || 'sHr3k4l1f3',
+                process.env.TOKEN,
                 { expiresIn: 129600 },
 
                 (err: any, token: any) => {
