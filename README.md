@@ -1,7 +1,7 @@
 # typescript-mongodb
 REST API using NodeJS and MongoDB
 
-## Prerequisites
+## Prerequisites ..
 
 You need to install these things for the app to work: 
 * [NodeJS](https://nodejs.org/en/download/) 
